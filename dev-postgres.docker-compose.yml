@@ -1,0 +1,32 @@
+
+services:
+  app:
+    container_name: technosky_container
+    build:
+      context: .
+      dockerfile: dev-profile.dockerfile
+    ports:
+      - "8081:8081"
+      - "8087:8087"
+    environment:
+      spring.datasource.url: "jdbc:postgresql://db:5432/postgres"
+      spring.datasource.username: "postgres"
+      spring.datasource.password: "postgres"
+    networks:
+      - "test_network"
+    depends_on:
+      - db
+  db:
+    container_name: db_container
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
+    networks:
+      - "test_network"
+networks:
+  test_network:
+

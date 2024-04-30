@@ -1,0 +1,44 @@
+spring:
+   application:
+      name: "task 25.04.2024"
+   jpa:
+      properties:
+         hibernate:
+            globally_quoted_identifiers: true
+            show_sql: true
+            format_sql: true
+      open-in-view: false
+   datasource:
+      url: jdbc:postgresql://127.0.0.1:5432/postgres
+      driver-class-name: org.postgresql.Driver
+      username: postgres
+      password: postgres
+   liquibase:
+      change-log: classpath:/db/changelog/app-changelog.yml
+logging:
+   level:
+      org:
+         springframework:
+            transaction:
+               interceptor: trace
+      root: INFO
+   file:
+      path: src/main/resources/logs
+      name: src/main/resources/logs/logs.log
+server:
+   port: 8081
+management:
+   info:
+      env:
+         enabled: true
+   endpoints:
+      web:
+         exposure:
+            include: health,info
+springdoc:
+   show-actuator: true
+info:
+   application:
+      name: ${spring.application.name}
+      description: Tehnosky test task
+
